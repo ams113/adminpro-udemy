@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -12,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { IncrementadorComponent } from './components/incrementador/incrementador.component';
 
+import { ServiceModule } from './services/service.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -24,9 +27,11 @@ import { IncrementadorComponent } from './components/incrementador/incrementador
     RegisterComponent
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     APPROUTES,
-    PageModule
+    PageModule,
+    FormsModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
