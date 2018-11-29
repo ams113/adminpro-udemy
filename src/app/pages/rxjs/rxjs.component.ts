@@ -13,11 +13,11 @@ export class RxjsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor() {
-    this.subscription = this.backObs().subscribe( 
+    /* this.subscription = this.backObs().subscribe( 
       numero => console.log('subs', numero),
       error => console.error('Error del obs', error),
       () => console.log('El observador termino!')
-    );
+    ); */
 
 
    }
@@ -26,10 +26,10 @@ export class RxjsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
   }
 
-  backObs(): Observable<any> {
+ /*  backObs(): Observable<any> {
     return new Observable( observer => {
       let contador = 0;
         const intervalo = setInterval( () => {
@@ -49,20 +49,20 @@ export class RxjsComponent implements OnInit, OnDestroy {
          /*  if (contador === 3 ) {
             clearInterval( intervalo );
             observer.complete();
-          } */
+          } 
         }, 1000 );
     }).pipe (
       map( resp => resp.valor),
-      filter( (valor, index) => {
+      filter( (valor: any, index) => {
         //console.log('Filter', valor, index);
-        if ( (valor % 2) ===1 ) {
+       /*  if ( (valor % 2) === 1 ) {
           //impar
           return true;
         } else {
           //par
           return false;
-        }
+        } 
       })
     );
-  }
+  } */
 }
