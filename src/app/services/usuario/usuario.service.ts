@@ -4,6 +4,10 @@ import { Usuario } from '../../models/usuario.model';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
+import { SubirArchivoService } from '../uploadFile/subir-archivo.service';
+import * as _swal from 'sweetalert';
+import { SweetAlert } from 'sweetalert/typings/core';
+const swal: SweetAlert = _swal as any;
 
 @Injectable()
 export class UsuarioService {
@@ -11,7 +15,7 @@ export class UsuarioService {
   usuario: Usuario;
   token: string;
 
-  constructor( public http: HttpClient, public router: Router) {
+  constructor( public http: HttpClient, public router: Router, public _uploadFile: SubirArchivoService) {
     this.loadLs();
    }
 
@@ -82,11 +86,39 @@ export class UsuarioService {
 
     return this.http.post( url, usuario)
     .map( (resp: any) => {
-      swal('Usuario creado', usuario.email, 'success')
+      swal('Usuario creado', usuario.email, 'success');
       return resp.usuario;
     });
 
 
+  }
+
+  updateUsuario(usuario: Usuario) {
+
+    let url = environment.URL_SERVICIOS + '/usuario/' + usuario._id;
+    url += '?token=' + this.token;
+
+    return this.http.put(url, usuario)
+              .map( (resp: any) => {
+                // this.usuario = resp.usuario;
+                this.saveLs( resp.usuario._id, this.token, resp.usuario);
+                swal("Usuario actualizado", resp.usuario.nombre, "success");
+                return true;
+
+              });
+
+  }
+
+  cambiarImagen( archivo: File, id: string ) {
+    this._uploadFile.subirArchivo( archivo, 'usuarios', id )
+    .then( (resp: any) => {
+      this.usuario.img = resp.usuario.img;
+      swal("Imagen Actualizada",  this.usuario.nombre, "success");
+      this.saveLs(id, this.token, this.usuario);
+    })
+    .catch( resp => {
+      console.log( resp );
+    });
   }
 
 }
