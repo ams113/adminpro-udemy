@@ -10,15 +10,15 @@ export class SubirArchivoService {
   subirArchivo( archivo: File, tipo: string, id: string) {
 
     return new Promise( (resolve, reject) => {
-      let formData = new FormData();
-      let xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      const xhr = new XMLHttpRequest();
 
       formData.append('imagen', archivo, archivo.name);
 
       xhr.onreadystatechange = function() {
         if ( xhr.readyState === 4 ) {
           if ( xhr.status === 200 ) {
-            console.log('Imagen subida');
+             // console.log('Imagen subida');
             resolve( JSON.parse(xhr.response) );
           } else {
             console.log( 'Fallo al subir la imagen' );

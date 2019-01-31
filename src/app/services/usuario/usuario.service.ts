@@ -26,6 +26,22 @@ export class UsuarioService {
     this.loadLs();
    }
 
+  renuevaToken() {
+    const url = environment.URL_SERVICIOS + '/login/renuevatoken?token=' + this.token;
+
+    return this.http.get( url )
+            .map( (resp: any) => {
+              this.token = resp.token;
+              localStorage.setItem('token', this.token);
+              console.log('Token renovado');
+              return true;
+            })
+            .catch( err => {
+              swal('No se pudo renover el token', err.msg, 'error');
+              return  Observable.throw( err );
+            });
+  }
+
   isLogin(): boolean {
     return ( this.token.length > 5) ? true : false;
   }
@@ -92,7 +108,7 @@ export class UsuarioService {
             return true;
           })
           .catch( err => {
-            console.log(err.error.msg);
+            // console.log(err.error.msg);
             swal('Error en el login', err.error.msg, 'error');
             return  Observable.throw( err );
           });
@@ -108,7 +124,7 @@ export class UsuarioService {
       return resp.usuario;
     })
     .catch( err => {
-      console.log( err.error.error.errors);
+      // console.log( err.error.error.errors);
       swal(err.error.msg, err.error.error.errors.email.message, 'error');
       return  Observable.throw( err );
     });

@@ -8,7 +8,7 @@ import { Graficas1Component } from "./graficas1/graficas1.component";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from "./rxjs/rxjs.component";
-import { LoginGuardGuard } from '../services/service.index';
+import { LoginGuardGuard, VerificaTokenGuard } from '../services/service.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
@@ -19,12 +19,13 @@ import { AdminGuard } from '../services/guards/admin.guard';
 
 
 const pagesRoutes: Routes = [
-    {
-        path: '',
-        component: PagesComponent,
-        canActivate: [ LoginGuardGuard ],
-        children: [
-            { path: 'dashboard', component: DashboardComponent, data: {titulo: 'Dasboard'} },
+
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+                canActivate: [ VerificaTokenGuard],
+                data: {titulo: 'Dasboard'}
+            },
             { path: 'progress', component: ProgressComponent, data: {titulo: 'Progress'} },
             { path: 'graficas1', component: Graficas1Component, data: {titulo: 'Gráficas'} },
             { path: 'promesas', component: PromesasComponent, data: {titulo: 'Promesas'} },
@@ -43,8 +44,6 @@ const pagesRoutes: Routes = [
             { path: 'medicos', component: MedicosComponent, data: {titulo: 'Gestión de Médicos'} },
             { path: 'medico/:id', component: MedicoComponent, data: {titulo: 'Actualizar Médico'} },
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
-        ]
-    }
 ];
 
 export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes )

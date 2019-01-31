@@ -11,7 +11,7 @@ export class ModalUploadService {
   public notificacion = new EventEmitter<any>();
 
   constructor() {
-    console.log('Service Modal');
+    // console.log('Service Modal');
   }
 
   ocultar() {

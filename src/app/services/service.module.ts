@@ -7,7 +7,8 @@ import {
   SettingService,
   SidebarService, SharedService,
   UsuarioService, LoginGuardGuard,
-  AdminGuard, SubirArchivoService,
+  AdminGuard, VerificaTokenGuard,
+  SubirArchivoService,
   HospitalService,
   MedicoService
 } from './service.index';
@@ -27,7 +28,8 @@ import {
     SubirArchivoService,
     ModalUploadService,
     HospitalService,
-    MedicoService
+    MedicoService,
+    VerificaTokenGuard
   ],
   declarations: []
 })

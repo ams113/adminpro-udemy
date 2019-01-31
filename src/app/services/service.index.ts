@@ -1,3 +1,4 @@
+export { VerificaTokenGuard } from './guards/verifica-token.guard';
 export { UsuarioService } from './usuario/usuario.service';
 export { HospitalService } from './hospital/hospital.service';
 export { MedicoService } from './medico/medico.service';
